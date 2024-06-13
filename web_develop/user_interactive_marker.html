@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Helo world!</title>
+
+<!--leaflet css-->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+	<style type="text/css">
+		<!-- #map{position: absolute;top:0;bottom:0;latf:o;right: 0;}-->
+		#map{
+			width:100%;
+			hight=100vh;
+		}
+		
+	</style>
+</head>
+<body>
+//<h1>HELOW WORLD</h1>
+<!--leaflet css
+<script type="text/javascript">
+	var map=L.map('map').setView([0,0],1);
+	L.titlLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=CXGrKq8CHCkRBRJN8bcy')
+
+	var marker=L.marker([51.5,-0.09]).addTo(map);
+</script>
+-->
+<div id="map"></div>
+
+</body>
+</html>
+<!--leaflet js-->
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<script>
+//map initilize
+var map = L.map('map').setView([53.25, -9.05], 13);
+//Create a view layer 
+var vl=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});//.addTo(map);
+vl.addTo(map);
+
+/*
+// add marker
+var marker=L.marker([53.28, -9.05], {
+	draggable:true, 
+	title:"This is marker"
+	});
+ marker.addTo(map)
+    .bindPopup('A pretty popup.<br> for customizing.');
+    //.openPopup();
+    //var marker = L.marker([lat, lng]).addTo(map);
+*/
+
+/* Allows users to interact with a map by adding markers at specific locations,as well as users should be able to attach images or videos providing URL to these specific geolocations. */
+
+// Add an event listener to interact with the map by marker placement
+    map.on('click', function(e) {
+      // Get the coordinates of the click event
+      var lat = e.latlng.lat;
+      var lng = e.latlng.lng;
+
+       //Create a marker at the specific location choosen by user
+      //var marker = L.marker([lat, lng]).addTo(map);
+
+      // Prompt the user to enter the URL of an image or video
+      var mediaUrl = prompt('Enter the URL of an image or video:');
+
+      // Create a popup with the media content
+      var popupContent = '<iframe width="300" height="200" src="' + mediaUrl + '" frameborder="0" allowfullscreen></iframe>';
+
+      // Create a marker at the clicked location with the popup and ask to provide URL
+      var marker = L.marker([lat, lng]).addTo(map).bindPopup(popupContent).openPopup();
+      
+    });
+</script>
